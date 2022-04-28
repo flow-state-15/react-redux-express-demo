@@ -11,9 +11,28 @@
     "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
     "per-env": "^1.0.2",
     "pg": "^8.7.3",
     "sequelize": "^5.22.5",
     "sequelize-cli": "^5.5.1"
-  }
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "dotenv-cli": "^5.1.0",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "sequelize": "sequelize",
+    "sequelize-cli": "sequelize-cli",
+    "start": "per-env",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
+    "start:production": "node ./bin/www"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
