@@ -19,7 +19,7 @@ export const increment_frame = () => async (dispatch) => {
   const response = await fetch(`/api/gif/get-index`);
 
   if (response.ok) {
-    const frame_index = await response.json();
+    const {frame_index} = await response.json();
     dispatch(increment(frame_index));
   } else {
     const error = {

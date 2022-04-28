@@ -13,7 +13,7 @@ export default function Gif() {
   //TODO: step 1. start here using Redux. useSelector alone will cause rerenders
   const dispatch = useDispatch();
   //note: state var is a primitive; makes it guaranteed to rerender
-  const gif_frame = useSelector((state) => state.gif?.frame?.frame_index);
+  const gif_frame = useSelector((state) => state.gif?.frame);
 
   //edge case
   const image = frame_array[0]
