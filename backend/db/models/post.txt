@@ -1,0 +1,4 @@
+npx sequelize-cli model:generate --name <ModelName> --attributes <column1>:
+<type>,<column2>:<type>,...
+
+npx dotenv sequelize-cli model:generate --name Post --attributes content:text

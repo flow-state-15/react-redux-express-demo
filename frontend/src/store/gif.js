@@ -16,8 +16,11 @@ const new_error = (error) => ({
 
 //thunks
 export const increment_frame = () => async (dispatch) => {
+  console.time()
   const response = await fetch(`/api/gif/get-index`);
-
+  console.timeEnd();
+  console.log('--------------')
+  
   if (response.ok) {
     const {frame_index} = await response.json();
     dispatch(increment(frame_index));
