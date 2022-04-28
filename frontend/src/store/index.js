@@ -1,8 +1,14 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
-const rootReducer = combineReducers({
+import sessionReducer from './session';
+import gif from './gif';
+import posts from './posts'
 
+const rootReducer = combineReducers({
+    session: sessionReducer,
+    gif,
+    posts
 });
 
 let enhancer;
