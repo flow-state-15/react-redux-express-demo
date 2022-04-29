@@ -1,3 +1,4 @@
+import { csrfFetch } from "./csrf";
 
 //post switch cases
 const create = "posts/CREATE";
@@ -74,7 +75,7 @@ const del_subcomment_action = (ids) => ({
 //thunks
 //posts thunks --------------------------------------------------------
 export const create_post = (post) => async (dispatch) => {
-  const response = await fetch(`/api/posts/`, {
+  const response = await csrfFetch(`/api/posts/`, {
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -97,7 +98,7 @@ export const create_post = (post) => async (dispatch) => {
 
 export const get_all_posts = () => async (dispatch) => {
 
-  const response = await fetch("/api/posts/")
+  const response = await csrfFetch("/api/posts/")
   if(response.ok){
     const { posts } = await response.json();
     console.log('posts:: ',posts)
@@ -112,7 +113,7 @@ export const get_all_posts = () => async (dispatch) => {
 }
 
 export const delete_post = (post_id) => async (dispatch) => {
-  const response = await fetch(`/api/posts/delete/post/${post_id}`, {
+  const response = await csrfFetch(`/api/posts/delete/post/${post_id}`, {
     method: "DELETE",
   });
 
@@ -124,7 +125,7 @@ export const delete_post = (post_id) => async (dispatch) => {
 
 //comments thunks --------------------------------------------------------
 export const create_comment = (comment) => async (dispatch) => {
-  const response = await fetch('/api/comments', {
+  const response = await csrfFetch('/api/comments', {
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -147,7 +148,7 @@ export const create_comment = (comment) => async (dispatch) => {
 
 export const get_all_comments = () => async (dispatch) => {
 
-  const response = await fetch("/api/posts/comments")
+  const response = await csrfFetch("/api/posts/comments")
   if(response.ok){
     const { comments } = await response.json();
     dispatch(all_comments(comments))
@@ -161,7 +162,7 @@ export const get_all_comments = () => async (dispatch) => {
 }
 
 export const delete_comment = (ids) => async (dispatch) => {
-  const response = await fetch(`/api/posts/delete/comment/${ids.comment_id}`, {
+  const response = await csrfFetch(`/api/posts/delete/comment/${ids.comment_id}`, {
     method: "DELETE",
   });
 
@@ -173,7 +174,7 @@ export const delete_comment = (ids) => async (dispatch) => {
 
 //subcomments thunks --------------------------------------------------------
 export const create_subcomment = (subcomment) => async (dispatch) => {
-  const response = await fetch('/api/posts/subcomments', {
+  const response = await csrfFetch('/api/posts/subcomments', {
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -195,7 +196,7 @@ export const create_subcomment = (subcomment) => async (dispatch) => {
 };
 
 export const get_all_subcomments = () => async (dispatch) => {
-  const response = await fetch("/api/posts/subcomments")
+  const response = await csrfFetch("/api/posts/subcomments")
   if(response.ok){
     const { subcomments } = await response.json();
     dispatch(all_subcomments(subcomments))
@@ -210,7 +211,7 @@ export const get_all_subcomments = () => async (dispatch) => {
 
 export const delete_subcomment = (ids) => async (dispatch) => {
 
-  const response = await fetch(`/api/posts/delete/subcomment/${ids.subcomment_id}`, {
+  const response = await csrfFetch(`/api/posts/delete/subcomment/${ids.subcomment_id}`, {
     method: "DELETE",
   });
 
