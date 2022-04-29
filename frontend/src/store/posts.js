@@ -100,6 +100,7 @@ export const get_all_posts = () => async (dispatch) => {
   const response = await fetch("/api/posts/")
   if(response.ok){
     const { posts } = await response.json();
+    console.log('posts:: ',posts)
     dispatch(all_posts(posts))
   } else {
     const error = {
@@ -123,7 +124,7 @@ export const delete_post = (post_id) => async (dispatch) => {
 
 //comments thunks --------------------------------------------------------
 export const create_comment = (comment) => async (dispatch) => {
-  const response = await fetch('/api/posts/comments', {
+  const response = await fetch('/api/comments', {
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -138,7 +139,7 @@ export const create_comment = (comment) => async (dispatch) => {
   } else {
     const error = {
       status_code: response.status,
-      error_desc: "increment_frame failed",
+      error_desc: "create_comment failed",
     };
     dispatch(new_error(error));
   }

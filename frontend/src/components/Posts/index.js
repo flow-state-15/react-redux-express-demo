@@ -13,6 +13,7 @@ import Comments from "../Comments";
 export default function Posts() {
   const dispatch = useDispatch();
   const p_from_reducer = useSelector((state) => state.posts.all_posts);
+  console.log('in component, p_from_reducer:: ', p_from_reducer)
   // const p_from_reducer = useSelector((state) => state.posts.values().sort())
 
   const handle_create_post = () => {
@@ -39,7 +40,7 @@ export default function Posts() {
     ? p_from_reducer.map((post) => {
         const child_props = {
           post_id: post.id,
-          comments: post.comments.all,
+          comments: post?.comments?.all,
           handle_create_c: handle_create_comment,
           handle_delete_c: handle_delete_comment,
         };
@@ -65,7 +66,7 @@ export default function Posts() {
             </div>
             {/* ------>> test these two conditional render methods <<------ */}
             {/* {post.comments.all.length > 0 && <Comments props={child_props} />} */}
-            {post.comments.all ? <Comments props={child_props} /> : null}
+            {post?.comments?.all ? <Comments props={child_props} /> : null}
           </div>
         );
       })

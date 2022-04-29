@@ -1,14 +1,15 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 
-const { Post } = require("../../db/models");
+const { Post, Comment } = require("../../db/models");
 
 const router = express.Router();
 
 //ROUTE HANDLING
 //GET ALL posts
 router.get('/', asyncHandler(async (req, res) => {
-    const posts = await Post.findAll();
+    const posts = await Post.findAll({include: [{model: Comment}]});
+    // console.log('\n\n', posts, '\n\n')
     return res.json({posts: posts.reverse()})
 }));
 
@@ -17,6 +18,7 @@ router.post("/", asyncHandler(async(req, res) => {
     const post = await Post.create(req.body);
     post.content = `${post.content}: ${post.id}`;
     await post.save();
+    console.log('\n\n', post.Comment, '\n\n')
     return res.json(post);
   })
 );
