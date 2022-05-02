@@ -41,7 +41,7 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  console.log('running after onLogin invocation, i bet useSelector reference changed:: ', user)
+  console.log('running the component return on every render. if useSelector reference changes we will redirect. user:: ', user)
 
   if (user) {
     return <Redirect to='/' />;
