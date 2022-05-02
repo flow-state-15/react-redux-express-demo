@@ -1,30 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { thunkLogin } from '../../store/session';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState('');
+  const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+
+  //   return () => {
+  //     console.log('in LOGINFORM, in use effect cleanup. Notice that just having a return function will stop react from throwing an error. react is assuming you know what happened')
+  //   };
+  // }, []);
+
   const onLogin = async (e) => {
     e.preventDefault();
-    const data = await dispatch(thunkLogin({email, password}));
+    const data = await dispatch(thunkLogin({credential, password}));
     if (data) {
       setErrors(data);
+      console.log('right after i set errors:: ', data)
+      console.log('that was the memory leak, right there. Notice that the log right before if(user) return already ran, and this setState ran right after. But by the time this log ran, we redirected and this component unmounted.')
+      console.log('>>> The cause of the leak is an incorrect return in thunk which assigns an object to data here. We are expecting an array of errors, but the object is general user info, not errors. We shouldnt be getting this object unless login failed with errors anyway.')
     }
   };
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
+  useEffect(() => {
+    console.log('use effect just caught the error change, errors:: ', errors)
+
+  }, [errors]);
+
+  const updateCredential = (e) => {
+    setCredential(e.target.value);
   };
 
   const updatePassword = (e) => {
     setPassword(e.target.value);
   };
+
+  console.log('running after onLogin invocation, i bet useSelector reference changed:: ', user)
 
   if (user) {
     return <Redirect to='/' />;
@@ -43,8 +60,8 @@ const LoginForm = () => {
           name='email'
           type='text'
           placeholder='Email'
-          value={email}
-          onChange={updateEmail}
+          value={credential}
+          onChange={updateCredential}
         />
       </div>
       <div>

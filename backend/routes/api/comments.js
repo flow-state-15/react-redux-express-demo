@@ -9,6 +9,7 @@ const router = express.Router();
 //GET ALL comments
 router.get('/', asyncHandler(async (req, res) => {
     const comments = await Comment.findAll();
+    // console.log('\n\n', comments, '\n\n')
     return res.json({ comments: comments.reverse() })
 }));
 
@@ -16,6 +17,7 @@ router.get('/', asyncHandler(async (req, res) => {
 router.post("/", asyncHandler(async(req, res) => {
     const comment = await Comment.create(req.body);
     comment.content = `${comment.content}: ${comment.id}`;
+    // console.log('\n\n', comment, '\n\n')
     await comment.save();
     return res.json(comment);
   })
@@ -24,7 +26,7 @@ router.post("/", asyncHandler(async(req, res) => {
 //DELETE ONE comment
 router.delete('/delete/comment/:id', asyncHandler(async (req, res) => {
     const { id } = req.params;
-    (await Comment.findByPk(id)).destroy();
+    await Comment.destroy({ where: { id: id } });
     return res.json(`Deleted comment id ${id}`);
 }));
 

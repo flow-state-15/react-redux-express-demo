@@ -162,7 +162,7 @@ export const get_all_comments = () => async (dispatch) => {
 }
 
 export const delete_comment = (ids) => async (dispatch) => {
-  const response = await csrfFetch(`/api/posts/delete/comment/${ids.comment_id}`, {
+  const response = await csrfFetch(`/api/comments/delete/comment/${ids.comment_id}`, {
     method: "DELETE",
   });
 

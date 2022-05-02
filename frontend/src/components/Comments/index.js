@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 
@@ -9,6 +10,13 @@ export default function Comments({ props }) {
   const all_comments = useSelector(
     (state) => state.posts[props.post_id].comments.all
   );
+
+  useEffect(() => {
+
+    return () => {
+      console.log('in COMMENTS, use effect return')
+    };
+  }, []);
 
   const element = all_comments ?
       all_comments.map((comment) => {

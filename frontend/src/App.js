@@ -28,9 +28,17 @@ function App() {
       setLoaded(true);
     })();
     console.log('in useeffect, after iife')
+
   }, [dispatch]);
 
   console.log('in body of function')
+
+  useEffect(() => {
+
+    return () => {
+      console.log('in APP, use effect return')
+    };
+  }, []);
 
   if (!loaded) {
     console.log('in !loaded, loaded:: ', loaded)

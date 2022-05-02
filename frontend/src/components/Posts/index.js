@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -35,6 +36,13 @@ export default function Posts() {
   const handle_delete_comment = (ids) => {
     dispatch(delete_comment(ids));
   };
+
+  useEffect(() => {
+
+    return () => {
+      console.log('in POSTS, use effect return')
+    };
+  }, []);
 
   const posts = p_from_reducer
     ? p_from_reducer.map((post) => {
